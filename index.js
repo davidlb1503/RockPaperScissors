@@ -1,3 +1,6 @@
+//global variables
+let humanScore=0, computerScore=0;
+
 //code for computer's choice
 function getComputerChoice(){
     var choice = Math.floor(Math.random()*3);
@@ -11,23 +14,7 @@ function getComputerChoice(){
         return "Scissors";
     }
 }
-// code to get human choice
-function getHumanChoice(){
-    let humanChoice = prompt("Enter your choice:\n0:Rock\n1:Paper\n2:Scissors\n");
-    if (parseInt(humanChoice)===0){    
-        return "Rock";
-    }
-    else if (parseInt(humanChoice) === 1){
-        return "Paper";
-    }
-    else { 
-        // if (parseInt(humanChoice) === 2)
-        return "Scissors";
-    }
-}
-
 function playGame(){
-    let humanScore=0, computerScore=0;
     function playRound(humanChoice,computerChoice){
         if (humanChoice === computerChoice){
             console.log("It's a tie!");
@@ -70,12 +57,32 @@ function playGame(){
         }
         return humanScore,computerScore;
     }
-    let k = 4;
-    while(k!==0){
-        var c = playRound(getHumanChoice(),getComputerChoice());
-        // console.log("\n");
-        console.log(c);
-        k--;
-    } 
+    if(humanScore<5 && computerScore<5){
+        const selection = document.querySelector("div");
+        selection.addEventListener("click",function(e){
+            const option = e.target;
+            switch(option.id){
+                case 'rock': playRound("Rock",getComputerChoice()); 
+                            wins();
+                            break;
+                case 'paper': playRound("Paper",getComputerChoice()); 
+                            wins();
+                            break;
+                case 'scissors': playRound("Scissors",getComputerChoice()); 
+                            wins();
+                            break;
+            };
+        });
+    }
 }
-playGame();
+function wins(){
+    if (humanScore===5 || computerScore===5){
+        if (humanScore>computerScore){
+            alert("You won!");
+        }  
+        else {
+            alert("Computer wins!")
+        }         
+    }
+}
+const k = playGame();
